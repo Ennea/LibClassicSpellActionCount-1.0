@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ]]
 
--- print('yo')
 local lib = LibStub:NewLibrary('LibClassicSpellActionCount-1.0', 1)
 
 -- already loaded
@@ -126,16 +125,14 @@ function lib:GetActionCount(slot)
         if actionType == 'macro' then
             actionID = GetMacroSpell(actionID)
             if not actionID then
-                return 0
+                return GetActionCount(slot)
             end
         end
 
         local reagentID = spellToReagentMapping[actionID]
-        if not reagentID then
-            return 0
+        if reagentID then
+            return GetItemCount(reagentID)
         end
-
-        return GetItemCount(reagentID)
     end
 
     -- use blizzard's for anything that's not a spell or macro
