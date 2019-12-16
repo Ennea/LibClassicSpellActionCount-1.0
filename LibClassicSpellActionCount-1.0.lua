@@ -119,6 +119,8 @@ local spellToReagentMapping = {
     [546] = 17058,      -- water walking
 }
 
+-- a drop in replacement for blizzard's GetActionCount that will also
+-- correctly return reagent count for spells and macros with spells
 function lib:GetActionCount(slot)
     local actionType, actionID = GetActionInfo(slot)
     if actionType == 'spell' or actionType == 'macro' then
@@ -137,4 +139,19 @@ function lib:GetActionCount(slot)
 
     -- use blizzard's for anything that's not a spell or macro
     return GetActionCount(slot)
+end
+
+-- returns reagent count for a given spell id or spell name
+function lib:GetSpellReagentCount(idOrName)
+    local spellID = select(7, GetSpellInfo(idOrName))
+    if not spellID then
+        return nil
+    end
+
+    local reagentID = spellToReagentMapping[spellID]
+    if not reagentID then
+        return nil
+    end
+
+    return GetItemCount(reagentID)
 end
