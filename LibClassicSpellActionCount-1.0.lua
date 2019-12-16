@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ]]
 
-local lib = LibStub:NewLibrary('LibClassicSpellActionCount-1.0', 1)
+local lib = LibStub:NewLibrary('LibClassicSpellActionCount-1.0', 3)
 
 -- already loaded
 if not lib then
